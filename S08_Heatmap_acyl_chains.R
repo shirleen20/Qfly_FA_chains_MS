@@ -13,7 +13,7 @@ rm(list=ls())
 
 #___Create Panel A of Figure 4: Heatmap showing most common acyl chains in lipid subclasses based on <5% inclusion threshold in Day 1 and Day 19 B. tryoni males____________________
 
-Abundance_Subclass <- as.data.frame(read_csv("MS1Standards/S06commonacylchains.csv"))
+Abundance_Subclass <- as.data.frame(read_csv("S06commonacylchains.csv"))
 
 S06Abundance <- Abundance_Subclass %>% filter(Line == "s06") 
 
@@ -190,7 +190,7 @@ DF <- DF1 %>%
 
 # Import standards data
 
-df.old <- read_csv("MS1Standards/Table_ConcAllStandards.csv") %>% # this is data from 1st run
+df.old <- read_csv("Table_ConcAllStandards.csv") %>% # this is data from 1st run
   dplyr::select(Name, Class, area, Conc, Batch) %>%
   dplyr::filter(Class != "Cer" & Class != "FA" & Class != "SM" & Class != "PCp") %>% 
   dplyr::group_by(Name, Class, Conc, Batch) %>% 
@@ -386,14 +386,14 @@ Prefilter_AbundanceSubclass <- Abundance_Subclass1 %>% # we have called this pre
   pivot_wider(names_from = c(CombinedSubClasses), values_from = Proportion2) %>%
   mutate_if(is.numeric, ~replace(., is.na(.), 0)) %>%  #replace NAs with 0 
   dplyr::filter(Line == "s06") %>% 
-  write_excel_csv("MS1Standards/S06commonacylchainsEL.csv") # save data to generate Panel B of heatmap 
+  write_excel_csv("S06commonacylchainsEL.csv") # save data to generate Panel B of heatmap 
 
 #______________________________
 # plot Panle B of Figure 4 heat map
 
 rm(list=ls())
 
-Abundance_Subclass <- as.data.frame(read_csv("MS1Standards/S06commonacylchainsEL.csv"))
+Abundance_Subclass <- as.data.frame(read_csv("S06commonacylchainsEL.csv"))
 
 S06Abundance <- Abundance_Subclass %>% ungroup() %>% select(-Time) 
 
@@ -435,8 +435,7 @@ p1 <- S06Abundance1 %>%
   theme(legend.position="none") +
   theme(plot.title = element_text(face = "bold", hjust = 0.5, size = (8))) + theme(axis.title = element_text(size = 8))
 
-ggsave(plot = p1, width = 6.8, height = 3.2, units = "in", dpi = 300,filename = "MS1Standards/Common acyl, alkyl, alkenyl chains in lipid subclasses.jpg")                                                              
+ggsave(plot = p1, width = 6.8, height = 3.2, units = "in", dpi = 300,filename = "Common acyl, alkyl, alkenyl chains in lipid subclasses.jpg")                                                              
 
-#ggsave(plot = p, width = 6.8, height = 3.2, units = "in", dpi = 300,filename = "log_transfomed.jpg")
 
 #__________________________________END_______________________________________________

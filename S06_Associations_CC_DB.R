@@ -19,17 +19,17 @@ rm(list=ls())
 
 #_______________Prepare figures for lipids subclasses for Panel A_________
 
-SC <- read_excel("MS1Standards/SC_only.xlsx") %>% 
+SC <- read_excel("SC_only.xlsx") %>% 
   dplyr::select(-Time, -LineTimeAge, -SE, -n) %>%
   dplyr::rename(Chainlength = AcylClass) %>% 
   dplyr::filter(SubClass %in% c("DG","TG","CL","PC","PE","PI","PG","PS","LPC"))
 
-Bond <- read_excel("MS1Standards/Bond_only.xlsx") %>% 
+Bond <- read_excel("Bond_only.xlsx") %>% 
   dplyr::select(-Time, -LineTimeAge, -SE, -n) %>% 
   dplyr::rename(Bonds = AcylClass) %>% 
   dplyr::filter(SubClass %in% c("DG","TG","CL","PC","PE","PI","PG","PS","LPC"))
 
-SC_Bond <- read_excel("MS1Standards/SC_Bondcombined.xlsx") %>% 
+SC_Bond <- read_excel("SC_Bondcombined.xlsx") %>% 
   dplyr::select(-Time, -LineTimeAge, -SE, -n) %>% 
   dplyr::rename(SCBond = AcylClass)%>% 
   dplyr::filter(SubClass %in% c("DG","TG","CL","PC","PE","PI","PG","PS","LPC"))
@@ -231,19 +231,19 @@ ggsave(plot = SCBondplot1, width = 6.8, height = 3.2, units = "in", dpi = 300,fi
 
 rm(list=ls())
 
-SCEL <- read_excel("MS1Standards/SC_onlyEL.xlsx") %>%
+SCEL <- read_excel("SC_onlyEL.xlsx") %>%
   dplyr::mutate(Age2 = recode(Age2,"1 Day ester" = "Day 1 acyl", "19 Day ester" = "Day 19 acyl",
                               "1 Day ether" = "Day 1 alkyl/alkenyl", "19 Day ether" = "Day 19 alkyl/alkenyl")) %>%
   dplyr::select(-Time, -LineTimeAge, -SE, -n) %>%
   dplyr::rename(Chainlength = AcylClass) 
 
-BondEL <- read_excel("MS1Standards/Bond_onlyEL.xlsx") %>% 
+BondEL <- read_excel("Bond_onlyEL.xlsx") %>% 
   dplyr::mutate(Age2 = recode(Age2,"1 Day ester" = "Day 1 acyl", "19 Day ester" = "Day 19 acyl",
                               "1 Day ether" = "Day 1 alkyl/alkenyl", "19 Day ether" = "Day 19 alkyl/alkenyl")) %>%
   dplyr::select(-Time, -LineTimeAge, -SE, -n, -SubClass) %>% 
   dplyr::rename(Bonds = AcylClass)
 
-SC_BondEL <- read_excel("MS1Standards/SC_BondcombinedEL.xlsx") %>% 
+SC_BondEL <- read_excel("SC_BondcombinedEL.xlsx") %>% 
   dplyr::mutate(Age2 = recode(Age2,"1 Day ester" = "Day 1 acyl", "19 Day ester" = "Day 19 acyl",
                               "1 Day ether" = "Day 1 alkyl/alkenyl", "19 Day ether" = "Day 19 alkyl/alkenyl")) %>%
   dplyr::select(-Time, -LineTimeAge, -SE, -n, -SubClass) %>% 

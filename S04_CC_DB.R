@@ -126,7 +126,7 @@ DF <- DF1 %>%
 
 # Import standards data
 
-df.old <- read_csv("MS1Standards/Table_ConcAllStandards.csv") %>% # this is data from 1st run
+df.old <- read_csv("Table_ConcAllStandards.csv") %>% # this is data from 1st run
   dplyr::select(Name, Class, area, Conc, Batch) %>%
   dplyr::filter(Class != "Cer" & Class != "FA" & Class != "SM" & Class != "PCp") %>% 
   dplyr::group_by(Name, Class, Conc, Batch) %>% 
@@ -327,9 +327,9 @@ Ester2 <- Complete_removeUnresolved %>% map(~SideChains(.)) %>% dplyr::bind_rows
 FinalEster <- full_join(Ester,Ester2)%>% 
   filter(Line=="s06")
 
-write.csv(Final, "MS1Standards/WeightedMeanVariance_Carbon&DoubleBond.csv", row.names = FALSE)
-write.csv(FinalEtherVinyl, "MS1Standards/WeightedMeanVariance_EtherVinyl_Carbon&DoubleBond.csv", row.names = FALSE)
-write.csv(FinalEster, "MS1Standards/WeightedMeanVariance_Ester_Carbon&DoubleBond.csv", row.names = FALSE)
+write.csv(Final, "WeightedMeanVariance_Carbon&DoubleBond.csv", row.names = FALSE)
+write.csv(FinalEtherVinyl, "WeightedMeanVariance_EtherVinyl_Carbon&DoubleBond.csv", row.names = FALSE)
+write.csv(FinalEster, "WeightedMeanVariance_Ester_Carbon&DoubleBond.csv", row.names = FALSE)
 
 #________________________________________END_________________________________________
 

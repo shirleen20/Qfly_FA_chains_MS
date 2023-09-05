@@ -121,7 +121,7 @@ DF <- DF1 %>%
 
 # Import standards data
 
-df.old <- read_csv("MS1Standards/Table_ConcAllStandards.csv") %>% # this is data from 1st run
+df.old <- read_csv("Table_ConcAllStandards.csv") %>% # this is data from 1st run
   dplyr::select(Name, Class, area, Conc, Batch) %>%
   dplyr::filter(Class != "Cer" & Class != "FA" & Class != "SM" & Class != "PCp") %>% 
   dplyr::group_by(Name, Class, Conc, Batch) %>% 
@@ -320,7 +320,7 @@ Prefilter_AbundanceSubclass <- Abundance_Subclass1 %>% # we have called this pre
   pivot_wider(names_from = c( Age, SubClass), values_from = Proportion) %>%
   mutate_if(is.numeric, ~replace(., is.na(.), 0)) %>% # replace NAs with 0
   dplyr::filter(Line == "s06") %>% 
-  write_excel_csv("MS1Standards/S06commonacylchains.csv")   
+  write_excel_csv("Final_Scripts/S06commonacylchains.csv")   
 
 
 #_________________________________________________
@@ -404,20 +404,19 @@ Filtered_type <- df_mean2 %>%
 Filtered_type_NeutralLipids <- Filtered_type %>% 
   filter(Type == "neutrallipids") %>% 
   dplyr::filter(Line == "s06") %>% 
-  write_excel_csv("MS1Standards/S06NLchains.csv")
+  write_excel_csv("S06NLchains.csv")
 
 # 2. Column Phospholipids (Table S11 in lipids MS1)
 
 Filtered_type_PhosphoLipids <- Filtered_type %>% 
   filter(Type == "phospholipids") %>%
   dplyr::filter(Line == "s06") %>% 
-  write_excel_csv("MS1Standards/S06PLchains.csv")   
+  write_excel_csv("S06PLchains.csv")   
 
 # 3. Column ether lipids 
 
 Filtered_type_EtherLipids <- Filtered_type %>% 
-  filter(Type == "etherlipids") #%>% 
-#write_excel_csv("Figures/etherlipidsfilteredacrosslipidtypes.csv")  
+  filter(Type == "etherlipids") 
 
 
 #________________________________________END_________________________________________

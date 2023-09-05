@@ -144,7 +144,7 @@ DF.1 <- DF1 %>%
 
 # Import standards data
 
-df.old <- read_csv("MS1Standards/Table_ConcAllStandards.csv") %>% # this is data from 1st run
+df.old <- read_csv("Table_ConcAllStandards.csv") %>% # this is data from 1st run
   dplyr::select(Name, Class, area, Conc, Batch) %>%
   dplyr::filter(Class != "Cer" & Class != "FA" & Class != "SM" & Class != "PCp") %>% 
   dplyr::group_by(Name, Class, Conc, Batch) %>% 
@@ -253,46 +253,6 @@ F1 <- function(X, Y, type="SCBond", keep="All"){
   }
 }
 
-###############################################################################################################
-#################################################################################################################
-# #We are unable to test for side chain bias when there is only one side chain
-# # 1.	This is because to create the test statistic we were using the mean empirical (observed) distribution of individual side chains and using the law of independence to derive the expected frequency of the side chains
-# # e.g. in the case of two side chains the expected frequency will be the product of two individual side chains frequency. However, when it is just a single side chain (i.e. in PCe position 1 that has ether bond), the
-# # expected frequency is just the empirical frequency hence there will be no variation. 
-# # 3.	We could process side chain bias for TGe esters but none survived the filter because the adjusted p-value was not significant. 
-#################################################################################################################
-##################################################################################################################
-# #X is the data frame to process
-# #Subclass is the name of the subclass variable as a string (default: "SubClass")
-# #type is either SCBond, SC or Bond (see F1)
-# #F2 <- function(X, Subclass = "SubClass", type = "SCBond", keep = "All"){
-# # Subclass_names <- unique(X[[Subclass]]) ### All the unique Subclasses
-# # Out_list <- setNames(replicate(length(Subclass_names), data.frame()), Subclass_names) ### create a list of empty data frames with names Subclass_names with length of the number of subclasses 
-# #  # if using vector(mode = "list", length = length(Subclass_names)) ... required renaming objects in Out_list, see next line
-# #  # names(Out_list) <- Subclass_names ## rename each object within the list with the subclass names
-# #  for (i in Subclass_names){ ### For each separate subclass
-# #    Out_list[[i]] <- F1(X, i, type, keep) ### in each object of that ith subclass, run F1 function on data frame X with subclass i
-# # }
-# # return(Out_list)
-# #}
-# #
-# # LIST1 <- F2(X = DF, type = "SCBond")
-# # LIST2 <- F2(X = DF, type = "SC")
-# # LIST3 <- F2(X = DF, type = "Bond")
-# 
-# # DF_EtherVinyl <- DF %>% filter(SubClass %in% c( "PC e", "PE e", "PE p","TG e")) ### keep only these subclasses to look at ether, vinyl or ester side chain abundances
-# # LIST1_Ethervinyl <- F2(X = DF_EtherVinyl, type = "SCBond", keep = "Ethervinyl")
-# # LIST2_Ethervinyl <- F2(X = DF_EtherVinyl, type = "SC", keep = "Ethervinyl")
-# # LIST3_Ethervinyl <- F2(X = DF_EtherVinyl, type = "Bond", keep = "Ethervinyl")
-# 
-# # LIST1_Ester <- F2(X = DF_EtherVinyl, type = "SCBond", keep = "Ester")
-# # LIST2_Ester <- F2(X = DF_EtherVinyl, type = "SC", keep = "Ester")
-# # LIST3_Ester <- F2(X = DF_EtherVinyl, type = "Bond", keep = "Ester")
-##################################################################################################################
-####################################################################################################################
-
-###So INSTEAD OF THE F2 FUNCTION ABOVE THAT SEPARATED THE ETHER AND ESTER CHAINS IN ELs we will use F2 fxn belo (no eth or est chain separation)
-
 F2 <- function(X, Subclass = "SubClass", type = "SCBond"){
   Subclass_names <- unique(X[[Subclass]]) ### All the unique Subclasses
   Out_list <- setNames(replicate(length(Subclass_names), data.frame()), Subclass_names) ### create a list of empty data frames with names Subclass_names with length of the number of subclasses 
@@ -391,7 +351,6 @@ CombinePerm <- function(AcylChain_type, NSc){
   names(ListContainingPerm) <- ListContainingPerm %>% map(~.[[1]]) %>%  unlist()### rename list of combinations with first element of each vector within the list
   return(ListContainingPerm)
 }
-
 
 #____________________________JOINED EXPECTATION (no conditional grouping)_______________________________
 ###### Wrap together as a function to work across all SubClass (using for loop) in LIST1
@@ -554,7 +513,6 @@ TablingFunction <- function(LIST, AcylChaintype="AcylBond"){
   return(FINAL)
 }
 
-
 AcylBond_Proportion <- TablingFunction(PROPORTION_LIST1_XGroup, "AcylBond") %>% #mutate(Category = str_replace_all(Category, "_","")) %>% 
   dplyr::filter(SubClass != "LPC") %>% 
   dplyr::mutate(Diff1Day = as.numeric(`ObservedMean_1 Day`)-as.numeric(`EXPECTED_1 Day`)) %>% 
@@ -687,6 +645,7 @@ Bond_ProportionEster <- TablingFunction(PROPORTION_LIST3_Ester_XGroup, "Bond") %
                                 "-",
                                 paste0(`Ratio_19 Day`, " (", Diff_19Day, ")")) ) %>%  
   dplyr::select(Class, SubClass, Category, Day1, Day19)
+
 #######___________
 
 
@@ -987,22 +946,22 @@ Merged2Ester <- Merged2Ester%>% group_by(Class, SubClass, Change) %>%
 
 # Save files for all lipids
 
-write.csv(AcylBond_Proportion, "MS1Standards/SideChainBias/Acyl_length_DoubleBond_Proportion.csv", row.names = FALSE)
-write.csv(AcylLength_Proportion, "MS1Standards/SideChainBias/Acyl_length_Proportion.csv", row.names = FALSE)
-write.csv(Bond_Proportion, "MS1Standards/SideChainBias/DoubleBond_Proportion.csv", row.names = FALSE)
+write.csv(AcylBond_Proportion, "SideChainBias/Acyl_length_DoubleBond_Proportion.csv", row.names = FALSE)
+write.csv(AcylLength_Proportion, "SideChainBias/Acyl_length_Proportion.csv", row.names = FALSE)
+write.csv(Bond_Proportion, "SideChainBias/DoubleBond_Proportion.csv", row.names = FALSE)
 
-write.csv(Merged0, "MS1Standards/SideChainBias/AcylLengthBond_Proportion_Main_Greater1.5_Lesser0.67.csv", row.names = FALSE)
-write.csv(Merged1, "MS1Standards/SideChainBias/Acyl_length_Proportion_Main_Greater1.5_Lesser0.67.csv", row.names = FALSE)
-write.csv(Merged2, "MS1Standards/SideChainBias/DoubleBond_Proportion_Main_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged0, "SideChainBias/AcylLengthBond_Proportion_Main_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged1, "SideChainBias/Acyl_length_Proportion_Main_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged2, "SideChainBias/DoubleBond_Proportion_Main_Greater1.5_Lesser0.67.csv", row.names = FALSE)
 
 # Save files for ether lipid separated into ether and ester chains
-write.csv(Merged0Ethervinyl, "MS1Standards/SideChainBias/AcylLengthBond_Proportion_MainEthervinyl_Greater1.5_Lesser0.67.csv", row.names = FALSE)
-write.csv(Merged1Ethervinyl, "MS1Standards/SideChainBias/Acyl_length_Proportion_MainEthervinyl_Greater1.5_Lesser0.67.csv", row.names = FALSE)
-write.csv(Merged2Ethervinyl, "MS1Standards/SideChainBias/DoubleBond_Proportion_MainEthervinyl_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged0Ethervinyl, "SideChainBias/AcylLengthBond_Proportion_MainEthervinyl_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged1Ethervinyl, "SideChainBias/Acyl_length_Proportion_MainEthervinyl_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged2Ethervinyl, "SideChainBias/DoubleBond_Proportion_MainEthervinyl_Greater1.5_Lesser0.67.csv", row.names = FALSE)
 
-write.csv(Merged0Ester, "MS1Standards/SideChainBias/AcylLengthBond_Proportion_MainEster_Greater1.5_Lesser0.67.csv", row.names = FALSE)
-write.csv(Merged1Ester, "MS1Standards/SideChainBias/Acyl_length_Proportion_MainEster_Greater1.5_Lesser0.67.csv", row.names = FALSE)
-write.csv(Merged2Ester, "MS1Standards/SideChainBias/DoubleBond_Proportion_MainEster_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged0Ester, "SideChainBias/AcylLengthBond_Proportion_MainEster_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged1Ester, "SideChainBias/Acyl_length_Proportion_MainEster_Greater1.5_Lesser0.67.csv", row.names = FALSE)
+write.csv(Merged2Ester, "SideChainBias/DoubleBond_Proportion_MainEster_Greater1.5_Lesser0.67.csv", row.names = FALSE)
 
 #_______________________________________________________________________
 
@@ -1015,9 +974,9 @@ FullSummarySCBond <- SummaryProportion %>% map(~.$summary) %>% bind_rows()
 FullSummarySC <- SummaryProportion2 %>% map(~.$summary) %>% bind_rows()
 FullSummaryBond <- SummaryProportion3 %>% map(~.$summary) %>% bind_rows()
 
-write.csv(FullSummarySCBond, "MS1Standards/SideChainBias/IndividualSCBondcombined.csv", row.names = FALSE)
-write.csv(FullSummarySC, "MS1Standards/SideChainBias/IndividualSConly.csv", row.names = FALSE)
-write.csv(FullSummaryBond, "MS1Standards/SideChainBias/IndividualBondOnly.csv", row.names = FALSE)
+write.csv(FullSummarySCBond, "SideChainBias/IndividualSCBondcombined.csv", row.names = FALSE)
+write.csv(FullSummarySC, "SideChainBias/IndividualSConly.csv", row.names = FALSE)
+write.csv(FullSummaryBond, "SideChainBias/IndividualBondOnly.csv", row.names = FALSE)
 
 #### We use this data to generate Figure 3 of acyl chain: Patterns of acyl chain length and double bond distribution in various lipid subclasses in Day1 & Day19 B.tryoni males
 
@@ -1025,17 +984,17 @@ FullSummarySCBondEthervinyl <- SummaryProportionEthervinyl %>% map(~.$summary) %
 FullSummarySCEthervinyl <- SummaryProportion2Ethervinyl %>% map(~.$summary) %>% bind_rows()
 FullSummaryBondEthervinyl <- SummaryProportion3Ethervinyl %>% map(~.$summary) %>% bind_rows()
 
-write.csv(FullSummarySCBondEthervinyl, "MS1Standards/SideChainBias/IndividualSCBondcombinedEthervinyl.csv", row.names = FALSE)
-write.csv(FullSummarySCEthervinyl, "MS1Standards/SideChainBias/IndividualSConlyEthervinyl.csv", row.names = FALSE)
-write.csv(FullSummaryBondEthervinyl, "MS1Standards/SideChainBias/IndividualBondOnlyEthervinyl.csv", row.names = FALSE)
+write.csv(FullSummarySCBondEthervinyl, "SideChainBias/IndividualSCBondcombinedEthervinyl.csv", row.names = FALSE)
+write.csv(FullSummarySCEthervinyl, "SideChainBias/IndividualSConlyEthervinyl.csv", row.names = FALSE)
+write.csv(FullSummaryBondEthervinyl, "SideChainBias/IndividualBondOnlyEthervinyl.csv", row.names = FALSE)
 
 FullSummarySCBondEster <- SummaryProportionEster %>% map(~.$summary) %>% bind_rows() 
 FullSummarySCEster <- SummaryProportion2Ester  %>% map(~.$summary) %>% bind_rows()
 FullSummaryBondEster <- SummaryProportion3Ester %>% map(~.$summary) %>% bind_rows()
 
-write.csv(FullSummarySCBondEster, "MS1Standards/SideChainBias/IndividualSCBondcombinedEster.csv", row.names = FALSE)
-write.csv(FullSummarySCEster, "MS1Standards/SideChainBias/IndividualSConlyEster.csv", row.names = FALSE)
-write.csv(FullSummaryBondEster, "MS1Standards/SideChainBias/IndividualBondOnlyEster.csv", row.names = FALSE)
+write.csv(FullSummarySCBondEster, "SideChainBias/IndividualSCBondcombinedEster.csv", row.names = FALSE)
+write.csv(FullSummarySCEster, "SideChainBias/IndividualSConlyEster.csv", row.names = FALSE)
+write.csv(FullSummaryBondEster, "SideChainBias/IndividualBondOnlyEster.csv", row.names = FALSE)
 
 #___________________________________END_______________________________________
 

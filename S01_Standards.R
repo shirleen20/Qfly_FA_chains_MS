@@ -14,7 +14,7 @@ rm(list=ls())
 
 # Make scatter plots for standards from 1st run
 
-df.old <- read_csv("MS1Standards/Table_ConcAllStandards.csv") %>% # this is data from 1st run
+df.old <- read_csv("Table_ConcAllStandards.csv") %>% # this is data from 1st run
   dplyr::select(Name, Class, area, Conc, Batch) %>%
   dplyr::filter(Class != "Cer" & Class != "FA" & Class != "SM" & Class != "PCp") %>% 
   dplyr::group_by(Name, Class, Conc, Batch) %>% 
@@ -43,10 +43,10 @@ plot <- df.old %>%
   stat_cor(aes(label = ..rr.label..), color = "black", geom = "label", size = 4) +
   stat_regline_equation(label.y = 8.5, geom = "label", size = 4)
 
-ggsave(plot = plot, width = 12, height = 8, units = "in", dpi = 300,filename = "StandardsFigure1strun.jpg")
+ggsave(plot = plot, width = 12, height = 8, units = "in", dpi = 300,filename = "Final_ScriptsStandards/Figure1strun.jpg")
 
 #_______________
-df.new <- read_csv("MS1Standards/Cardiolipin stds.csv") %>% # data from 2nd rum
+df.new <- read_csv("Cardiolipin stds.csv") %>% # data from 2nd rum
   pivot_longer(cols = 2:6, names_to = "Name", values_to = "Area") %>% 
   tidyr::separate(col = Name, into = c("Class", NA), " ", remove = FALSE)%>% 
   dplyr::rename(Conc = std_conc)%>% 
@@ -115,7 +115,7 @@ Combinedplot2 <- DF.CombinedExp %>%
 #___________________________________________________________________________________________________
 
 #______Make the plots for "DG","TG", "CL","PC", "PE" with 1st (4 batches) and 2nd standard runs___________
-df.new01 <- read_csv("MS1Standards/Cardiolipin stds.csv") %>% # data from 2nd rum
+df.new01 <- read_csv("Cardiolipin stds.csv") %>% # data from 2nd rum
   pivot_longer(cols = 2:6, names_to = "Name", values_to = "Area") %>% 
   tidyr::separate(col = Name, into = c("Class", NA), " ", remove = FALSE)%>% 
   dplyr::rename(Conc = std_conc)%>% 
@@ -123,7 +123,7 @@ df.new01 <- read_csv("MS1Standards/Cardiolipin stds.csv") %>% # data from 2nd ru
   dplyr::select(Name, Class, Area, Conc, Batch) %>% 
   dplyr::filter(Conc != "10" | Name != "TG 54:3" | Class != "TG") # remove the outlier in TG standard 2nd run 
 
-df.old01 <- read_csv("MS1Standards/Table_ConcAllStandards.csv") %>% # this is data from 1st run
+df.old01 <- read_csv("Table_ConcAllStandards.csv") %>% # this is data from 1st run
   dplyr::select(Name, Class, area, Conc, Batch) %>% 
   dplyr::group_by(Class,Conc, Batch) %>% 
   dplyr::mutate(Area = mean(area)) %>% # calculates overall means from the four batches and technical replicates
@@ -154,7 +154,7 @@ Batchplot <- DF.Combined %>%
 #stat_cor(aes(label = ..rr.label..), color = "black", geom = "label", size = 4) +
 #stat_regline_equation(label.y = 8.5, geom = "label", size = 4)
 
-ggsave(plot = Batchplot, width = 10, height = 8, units = "in", dpi = 300,filename = "Figurewithstandardruninbatches.jpg")
+ggsave(plot = Batchplot, width = 10, height = 8, units = "in", dpi = 300,filename = "Final_Scripts/Figurewithstandardruninbatches.jpg")
 
 #_________________END_______________
 

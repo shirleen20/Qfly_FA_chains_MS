@@ -131,7 +131,7 @@ DF <- DF1 %>%
 
 # Import standards data
 
-df.old <- read_csv("MS1Standards/Table_ConcAllStandards.csv") %>% # this is data from 1st run
+df.old <- read_csv("Table_ConcAllStandards.csv") %>% # this is data from 1st run
   dplyr::select(Name, Class, area, Conc, Batch) %>%
   dplyr::filter(Class != "Cer" & Class != "FA" & Class != "SM" & Class != "PCp") %>% 
   dplyr::group_by(Name, Class, Conc, Batch) %>% 
@@ -207,7 +207,7 @@ DF00 <- DF01 %>%
   pivot_wider(names_from = SubClass, values_from = PeSE) %>% 
   dplyr::filter(Line == "s06")
 
-write.csv(DF00,"MS1Standards/Lipid subclasses percent conc.csv")
+write.csv(DF00,"Lipid subclasses percent conc.csv")
 
 
 # use DF to calculate % abundance & SE for each of the 4 lipid categories for s06 only for Table 1 of lipid MS1
@@ -250,7 +250,7 @@ DF_type2 <- DF_type %>%
   pivot_wider(names_from = Type, values_from = PeSE) %>% 
   dplyr::filter(Line == "s06")
 
-write.csv(DF_type2,"MS1Standards/Lipid catergories percent conc.csv")
+write.csv(DF_type2,"Lipid catergories percent conc.csv")
 
 #________2. Calculate percentage conc and number of lipid species detected for s06 to generate Tables S4, S5, S6 of lipids MS1_____
 
@@ -294,7 +294,7 @@ S06_lipids01 <- S06_lipids %>%
   dplyr::mutate(Abundance = paste0("(", Abundance)) #%>% 
   #dplyr::filter(SubClass %in% c("DG e", "TG e", "PC e", "PE e", "PE p", "PS e"))
 
-write.csv(S06_lipids01,"MS1Standards/S06_lipid species and abundance.csv") 
+write.csv(S06_lipids01,"Final_Scripts/S06_lipid species and abundance.csv") 
 
 # check to see which lipids in S06 appears only at age 1 day and only at age 19 day I have included column N.Area
 df_1day <- DF %>% ungroup()%>% dplyr::filter(Line == "s06" & Age == "1 Day" & Samples != "s06_158")%>% dplyr::select(Name, SubClass) 
@@ -313,9 +313,9 @@ diff1_SA <- inner_join(diff1, S06_lipids) %>% dplyr::select(-se)
 diff19_SA <- inner_join(diff19, S06_lipids) %>% dplyr::select(-se)
 commonlipids_SA <- inner_join(commonlipids, S06_lipids) %>% dplyr::select(-se)
 
-write.csv(diff1_SA,"MS1Standards/diff1_SA.csv")  
-write.csv(diff19_SA,"MS1Standards/diff19_SA.csv")
-write.csv(commonlipids_SA,"MS1Standards/commonlipids_SA.csv") 
+write.csv(diff1_SA,"diff1_SA.csv")  
+write.csv(diff19_SA,"diff19_SA.csv")
+write.csv(commonlipids_SA,"commonlipids_SA.csv") 
 
 #_________
 
@@ -335,7 +335,7 @@ commonlipids_rep <- inner_join(commonlipids_SA, rep) %>% dplyr::select (-se) # d
 #______3. Generate Figure 2 for lipids MS1 showing correlations between the abundances vs diversities of lipid subclasses___________
 
 # import data to be used for plotting
-DF_diversity <- read_excel("MS1Standards/S06_lipiddiversity.xlsx") %>%
+DF_diversity <- read_excel("S06_lipiddiversity.xlsx") %>%
   dplyr::select(-se)
 
 # make correlation plot 
@@ -365,7 +365,7 @@ plot <- DF_diversity %>%
   stat_cor(aes(label = ..rr.label..), color = "black", geom = "label", size = 3) # cor() fxn computes the correlation coefficient
 #NB:when we separate the plot by age there is less than 3 datapoints in one of the subclass so doesn't give r squared value
 
-ggsave(plot = plot, width = 6, height = 4, units = "in", dpi = 300,filename = "MS1Standards/FigureS2.jpg")
+ggsave(plot = plot, width = 6, height = 4, units = "in", dpi = 300,filename = "FigureS1.jpg")
 
 #_____________________________________________________________
 
