@@ -1,8 +1,7 @@
 #___________________________________________________02/062023_____________________________________________
 
-# This consolidated script is similar to S05.R except that here we also separate the ether and ester bond in 
-# ether lipids for side chain analysis to generate Figure3 that shows so function F1 changes compared to S05.R
-# frequency of distribution of average C length and DB in ether lipids 
+# This consolidated script separates the ether and ester bond in ether lipids for side chain analysis 
+# to generate Tables 3, S13-S15
 # we divide them into short chains that  were less than 16C, medium chains that were 16-18C long and long 
 # containing >18C. 
 # double bond proportions in each subclass by dividing into three categories of saturated fatty acids s0 chains 
@@ -21,7 +20,7 @@
 #  c.	Expected percentage > 5 (%) in both days
 #  d.	Expected greater than observed in both days
 
-# NB: We use outputs from here to generate figure 2 and 3 for MS1 in script S07.R
+# NB: We use outputs from here to generate figure 2 and 3 
 
 library("tidyverse")
 library("readxl")

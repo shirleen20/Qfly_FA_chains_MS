@@ -1,5 +1,5 @@
 #_____________________________________________31/05/2023___________________________________________________
-# Here we use lipid concentrations to generate Tables 1 (lipid diversities and abundances), Figure 2 
+# Here we use lipid concentrations to generate Tables 1 (lipid diversities and abundances), Figure S1 
 # (Correlations between the abundances vs diversities of the various lipid subclasses in Day 1 and Day 
 # 19 S06 males), Supplementary Tables S4, S5 and S6 and Figure S1 of Lipid MS1 
 # lipids MS1 (Tables S4, S5 and S6 shows lipid species found in NLs,PLs, ELNLs, ELPLs and their abundances and 

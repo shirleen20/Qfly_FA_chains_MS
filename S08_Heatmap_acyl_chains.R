@@ -1,8 +1,6 @@
 #______________________________________________02/06/2023______________________________________________
 
-# Generate Panel A and Panel B heat map for Figure 4 in lipid MS 1 using data obtained from Script07.R 
-# on the mean proportions of common acyl chains present in each lipid subclass using dataframe saved as 
-# Prefilter_AbundanceSubclass.csv
+# Generate Panel A and Panel B heat map for Figure 3 
 
 library(tidyverse)
 library(ggplot2)

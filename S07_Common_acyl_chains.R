@@ -1,7 +1,7 @@
 #_______________________________02/06/2023_______________________________
 
 # Analysis to identify common acyl chains present in lipid subclasses and their % abundance in Day1 and Day19 B.tryoni males
-# Use output from here to generate S9, S10, S11 for lipid MS1 and main text figure 4 which is the heat map we generate in S09.R
+# Use output from here to generate S9, S10, S11 for lipid MS1 and Figure 3 which we plot in script S08_Heatmap_acyl_chains.R 
 
 library("tidyverse")
 library("readxl")

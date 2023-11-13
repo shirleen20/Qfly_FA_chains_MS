@@ -1,9 +1,7 @@
 #____________________________________________________________02/06/2023__________________________________________________________
 
-# Here we generate bar plots to observe correlations in the distributions across side chain length, double bond and joint categories across 
-# subclasses to create Panel A and separating acyl chains in ether lipids with "e" and "p" to generate Panel B of Figure 3 lipid MS1.
-# The mean proportions (% abundances) of individual chains that were short vs medium vs long, and saturated, vs mono-unsaturated vs 
-# polyunsaturated was generated from S05.R (all lipids) and S06.R (all lipids plus ether lipids with e and p separated)
+# Here we generate Figure 2 to observe correlations in the distributions across side chain length, double bond and joint categories 
+
 # Removed PSe and DGe because the acyl chains could not be resolved, we just end up with a long single polyunsaturated acyl chain
 
 library("tidyverse")

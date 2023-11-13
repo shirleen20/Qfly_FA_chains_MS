@@ -1,6 +1,6 @@
 #_____________________________________________25/05/2023___________________________________________________
 
-# Here we calculate lipid concentrations using standards
+# Here we calculate lipid concentrations using standards to generate Table S1
 
 library("tidyverse")
 library("ggrepel")

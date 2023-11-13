@@ -154,7 +154,8 @@ Batchplot <- DF.Combined %>%
 #stat_cor(aes(label = ..rr.label..), color = "black", geom = "label", size = 4) +
 #stat_regline_equation(label.y = 8.5, geom = "label", size = 4)
 
-ggsave(plot = Batchplot, width = 10, height = 8, units = "in", dpi = 300,filename = "Final_Scripts/Figurewithstandardruninbatches.jpg")
+# To verify standard performance of different concentration in different batches
+#ggsave(plot = Batchplot, width = 10, height = 8, units = "in", dpi = 300,filename = "Final_Scripts/Figurewithstandardruninbatches.jpg")
 
 #_________________END_______________
 
