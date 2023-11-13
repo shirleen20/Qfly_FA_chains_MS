@@ -3,10 +3,7 @@ Patterns of variation in the usage of fatty acid chains among classes of ester a
 
 Shirleen S. Prasad, Matthew C. Taylor, Valentina Colombo, Heng Lin Yeap, Gunjan Pandey, Siu Fai Lee, Phillip W. Taylor and John G. Oakeshott.
 
-Contributors to this codes:
-Shirleen S Prasad
-Heng Lin Yeap
-Gunjan Pandey
+Contributors to these codes: Shirleen S Prasad, Heng Lin Yeap, Gunjan Pandey
 
 Script file summaries:
 
@@ -16,7 +13,7 @@ S03_Tables_Figs_Lipid_composition.R: generates Table 1, Figure S1 , Supplementar
 
 S04_CC_DB.R: generates Table 2 
 
-S05_Side_chain_bias_ analysis.R: generate Tables 3, S13-S15
+S05_Side_chain_bias_ analysis.R: generates Tables 3, S13-S15
 
 S06_Associations_CC_DB: generates Figure 2
 

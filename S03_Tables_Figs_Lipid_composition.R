@@ -191,7 +191,7 @@ DF01 <- Complete_DF %>%
   dplyr::select(Line, Time, Age, SubClass, Percentage, se)
 
 # Check to see if % adds to 100 for an individual sample, run the above codes till unique() the total % should come to 100. 
-sum((DF01 %>% dplyr::filter(Samples == "s06_02"))$Percentage)
+# sum((DF01 %>% dplyr::filter(Samples == "s06_02"))$Percentage)
 
 # Check to see if percentage adds to 100 for a Line, Age, Time
 DF01 %>% 
@@ -252,7 +252,7 @@ DF_type2 <- DF_type %>%
 
 write.csv(DF_type2,"Lipid catergories percent conc.csv")
 
-#________2. Calculate percentage conc and number of lipid species detected for s06 to generate Tables S4, S5, S6 of lipids MS1_____
+#________2. Calculate percentage conc and number of lipid species for s06 to generate Tables S4, S5, S6_____
 
 # First generate % conc values & SE for each of the lipid species present 
 # NB: for the complete function used to fill in zeros we will have SubClass and Name inside the 1st nesting unlike above when calculating the % abundance of each SubClass, we only had SubClass in the 1st nesting
@@ -308,11 +308,6 @@ diff19 <- setdiff(df_19day, df_1day) #this prints out those lipid species that a
 # find lipids that are common at both ages
 commonlipids <- intersect(df_1day, df_19day)
 
-# inner join diff1, diff19 and commonlipids with S06_lipids returns only rows in which the left table has matching keys in the right table
-diff1_SA <- inner_join(diff1, S06_lipids) %>% dplyr::select(-se) 
-diff19_SA <- inner_join(diff19, S06_lipids) %>% dplyr::select(-se)
-commonlipids_SA <- inner_join(commonlipids, S06_lipids) %>% dplyr::select(-se)
-
 write.csv(diff1_SA,"diff1_SA.csv")  
 write.csv(diff19_SA,"diff19_SA.csv")
 write.csv(commonlipids_SA,"commonlipids_SA.csv") 
@@ -328,9 +323,9 @@ rep <- DF %>%
 
 # join the column count that contains info on nbr of samples that have a lipid species present
 
-diff1_rep <- inner_join(diff1_SA, rep) %>% dplyr::select (-se)# df for lipids found only at 1day
-diff19_rep <- inner_join(diff19_SA, rep) %>% dplyr::select (-se) # df for lipids found only at 1day
-commonlipids_rep <- inner_join(commonlipids_SA, rep) %>% dplyr::select (-se) # df for lipids found only at both ages
+#diff1_rep <- inner_join(diff1_SA, rep) %>% dplyr::select (-se)# df for lipids found only at 1day
+#diff19_rep <- inner_join(diff19_SA, rep) %>% dplyr::select (-se) # df for lipids found only at 1day
+#commonlipids_rep <- inner_join(commonlipids_SA, rep) %>% dplyr::select (-se) # df for lipids found only at both ages
 
 #______3. Generate Figure 2 for lipids MS1 showing correlations between the abundances vs diversities of lipid subclasses___________
 
